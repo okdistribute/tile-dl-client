@@ -1,6 +1,6 @@
 {
   "name": "tile-dl-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Download map tiles in the browser to a `.tar` file, without memory limits.",
   "main": "index.js",
   "scripts": {
