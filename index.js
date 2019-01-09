@@ -12,30 +12,27 @@ require('tilelive-tar').registerProtocols(tilelive)
 * Download tile data given a query.
 */
 
-var blobStore = store()
-let browser = window.browser
-
 module.exports = function (url, data, cb) {
+  var blobStore = store()
+
   tilelive.load(url, function (err, source) {
     if (err) throw err
     var sinkUrl = 'tar://tiles' + path.extname(url)
     tilelive.load(sinkUrl, function (err, sink) {
       if (err) throw err
-      var ws = blobStore.createWriteStream('tiles.tar', () => {
-        var filename = 'tiles.tar'
-        console.log('downloading', filename)
-        browser.downloads.download({
-          url: `/export/${filename}`,
-          filename: filename,
-          conflictAction: 'uniquify'
-        })
-      })
+      var ws = blobStore.createWriteStream(data.path || 'tiles.tar', cb)
 
       sink.pack.on('data', function (data) {
         ws.write(data)
       })
 
-      var bounds = [data.minLng, data.minLat, data.maxLng, data.maxLat]
+      var bounds = data.bounds || [
+        data.minLng,
+        data.minLat,
+        data.maxLng,
+        data.maxLat
+      ]
+
       var reader = source.createReadStream({
         minzoom: data.minZoom,
         maxzoom: data.maxZoom || data.minZoom + 1,
@@ -43,12 +40,10 @@ module.exports = function (url, data, cb) {
       })
       var writer = sink.createWriteStream()
 
-      var stream = pump(reader, writer, function (err) {
-        if (err) console.error(err)
-        ws.close()
+      pump(reader, writer, function (err) {
+        if (err) cb(err)
+        ws.end()
       })
-
-      cb(stream)
     })
   })
 }
