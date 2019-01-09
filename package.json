@@ -1,0 +1,33 @@
+{
+  "name": "tile-dl-client",
+  "version": "1.0.0",
+  "description": "Download map tiles in the browser to a `.tar` file, without memory limits.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karissa/tile-dl-client.git"
+  },
+  "keywords": [
+    "tilelive",
+    "download",
+    "client",
+    "browser"
+  ],
+  "author": "Karissa McKelvey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karissa/tile-dl-client/issues"
+  },
+  "homepage": "https://github.com/karissa/tile-dl-client#readme",
+  "dependencies": {
+    "@mapbox/tilejson": "^1.1.0",
+    "@mapbox/tilelive": "^6.0.0",
+    "streamsaver": "^1.0.1",
+    "tilelive-http": "^0.14.0",
+    "tilelive-streaming": "^0.7.7",
+    "tilelive-tar": "^1.1.0"
+  }
+}
