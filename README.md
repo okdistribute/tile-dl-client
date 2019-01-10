@@ -51,10 +51,16 @@ And then pass these options and the URL. The callback is called when the tiles
 are finished downloading.
 
 ```js
-download(url, opts, function (err) {
+function done (err) {
   if (err) throw err
   alert('Done!')
 })
+
+function onprogress (p) {
+  console.log(`${p}%`)
+}
+
+download(url, opts, done, onprogress)
 ```
 
 You'll probably want to then use a service worker or some other method to get

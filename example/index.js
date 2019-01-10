@@ -22,7 +22,11 @@ var data = {
   path: '/export/tiles.tar'
 }
 
-downloader(url, data, function (err) {
+function onprogress (p) {
+  document.body.innerHTML = p
+}
+
+function ondone (err) {
   if (err) throw err
   var element = document.createElement('a')
   element.setAttribute('href', data.path)
@@ -31,4 +35,6 @@ downloader(url, data, function (err) {
   let click = new window.MouseEvent('click')
   element.dispatchEvent(click)
   document.body.removeChild(element)
-})
+}
+
+downloader(url, data, ondone, onprogress)
