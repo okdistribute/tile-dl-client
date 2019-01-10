@@ -6,11 +6,17 @@ Uses window.caches to support downloads without memory limits, which only works 
 late versions of Google Chrome.
 
 
-## Usage
+## Install
 
 ```
 npm install tile-dl-client
 ```
+
+## Example
+
+Run `npm test` and see the code in `example/`.
+
+## Usage 
 
 ```js
 var download = require('tile-dl-client')
@@ -22,10 +28,10 @@ var opts = {
 }
 ```
 
-Bounds can be specified using `bounds` or `IBBox`:
+Bounds can be specified with minimum and maximum lats and lons directly:
 
 ```js
-opts.IBBox = {
+{
   minLat: 58.516,
   maxLat: 57.9095,
   maxLng: -6.1357,
@@ -33,15 +39,17 @@ opts.IBBox = {
 }
 ```
 
-OR 
+OR using `bounds`, 
 
 ```js
-opts.bounds = [
+bounds = [
   -7.1354, 58.516,-6.1357, 57.9095
 ]
 ```
 
-And then pass options and the URL to the downloader:
+And then pass these options and the URL. The callback is called when the tiles
+are finished downloading.
+
 ```js
 download(url, opts, function (err) {
   if (err) throw err
@@ -49,9 +57,9 @@ download(url, opts, function (err) {
 })
 ```
 
-## Testing
-
-Run `npm test` and view the console output in your browser. 
+You'll probably want to then use a service worker or some other method to get
+use the offline tiles after that point. See the `example` directory for the
+recommended way to download these files to the user's download folder.
 
 ## License
 

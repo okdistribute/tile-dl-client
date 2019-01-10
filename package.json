@@ -4,8 +4,8 @@
   "description": "Download map tiles in the browser to a `.tar` file, without memory limits.",
   "main": "index.js",
   "scripts": {
-    "build": "browserify test.js -o bundle.js",
-    "test": "npm run build && http-server ."
+    "build": "browserify example/index.js -o example/bundle.js",
+    "test": "npm run build && http-server example"
   },
   "repository": {
     "type": "git",

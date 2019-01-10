@@ -14,6 +14,9 @@ require('tilelive-tar').registerProtocols(tilelive)
 
 module.exports = function (url, data, cb) {
   var blobStore = store()
+  if (!data.bounds && !(data.minLng && data.minLat && data.maxLng && data.maxLat)) {
+    return cb(new Error('Requires bounds, or minLat/minLon/maxLat/maxLon'))
+  }
 
   tilelive.load(url, function (err, source) {
     if (err) throw err
